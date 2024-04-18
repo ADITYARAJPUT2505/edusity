@@ -38,7 +38,10 @@ a {
   width: 20px;
   margin-left: 10px;
 }
-
+.btn.dark-btn{
+  background:#212EA0;
+  color: #fff;
+}
 /* .nav-item {
   /* padding-right: 40px; */
 /* margin-right: 40px; */
