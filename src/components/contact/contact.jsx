@@ -6,6 +6,56 @@ import phone_icon from "../../assets/phone-icon.png";
 import location_icon from "../../assets/location-icon.png";
 import white_arrow from "../../assets/white-arrow.png";
 const contact = () => {
+  
+    const [result, setResult] = React.useState("");
+
+    const onSubmit = async (event) => {
+      event.preventDefault();
+      setResult("Sending....");
+      const formData = new FormData(event.target);
+
+      formData.append("access_key", "28e1f510-6885-4de4-b345-760286b0bf27");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("Form Submitted Successfully");
+        event.target.reset();
+      } else {
+        console.log("Error", data);
+        setResult(data.message);
+      }
+    };
+  
+  // const onSubmit = async (event) => {
+  //   event.preventDefault();
+  //   setResult("Sending....");
+  //   const formData = new FormData(event.target);
+  
+  //   formData.append("access_key", "28e1f510-6885-4de4-b345-760286b0bf27");
+  
+  //   const response = await fetch("https://api.web3forms.com/submit", {
+  //     method: "POST",
+  //     body: formData,
+  //   });
+  
+  //   const data = await response.json();
+  
+  //   if (data.success) {
+  //     setResult("Form Submitted Successfully");
+  //     event.target.reset();
+  //   } else {
+  //     console.log("Error", data);
+  //     setResult(data.message);
+  //   }
+  // };
+  
+
   return (
     <div className="contact">
       <div className="contact-col">
@@ -32,7 +82,7 @@ const contact = () => {
         </ul>
       </div>
       <div className="contact-col">
-        <form>
+        <form onSubmit={onSubmit}>
           <label>Your Name</label>
           <input
             type="text"
@@ -59,7 +109,7 @@ const contact = () => {
             <img src={white_arrow} alt="" />
           </button>
         </form>
-        <span></span>
+        <span>{result}</span>
       </div>
     </div>
   );
